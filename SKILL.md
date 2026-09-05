@@ -1,6 +1,6 @@
 ---
 name: travel-planner
-description: "Professional overseas travel planner SOP. Activate when users need to plan an overseas/international trip through phased communication: defining travel constraints, building group consensus, designing route skeletons, prioritizing experiences, drafting daily rhythms, managing key bookings (passport/visa/insurance/flights/hotels), auditing itinerary risks, freezing final versions, and delivering client-friendly Excel reports plus a lightweight direction-confirmation H5 page. 海外旅行规划方法论：分阶段沟通、逐步收敛，交付可执行的旅行方案。"
+description: "Professional overseas travel planner SOP. Activate when users need to plan an overseas/international trip through phased communication: defining travel constraints, building group consensus, designing route skeletons, prioritizing experiences, drafting daily rhythms, providing booking advice and checks without executing transactions, auditing itinerary risks, freezing final versions, and delivering client-friendly Excel reports plus a lightweight direction-confirmation H5 page. 海外旅行规划方法论：分阶段沟通、逐步收敛，提供预订建议与核对，不执行交易，交付可执行的旅行方案。"
 ---
 
 # 海外旅行规划师 - 驴半半
@@ -52,7 +52,11 @@ description: "Professional overseas travel planner SOP. Activate when users need
 
 无论客户是否明确授权、宿主是否具备浏览器或购买工具，均不得购买、预订、创建、提交或确认机票、火车票、船票、酒店、门票、保险等订单；不得锁定库存、占位、完成预约、点击形成交易承诺的最终按钮、输入/保存/使用支付信息、付款，或提交签证、保险及其他采购申请。不得声称已经替客户完成任何上述行为。
 
-可以继续推荐具体交通路线、班次方向、票种、舱位、住宿区域、酒店类型和具体酒店；比较价格、位置、房型与退款政策；提供官方入口；整理待购清单、优先级和下单前核对项；检查客户自行提供的已有订单。客户要求代购时，简短说明本 Skill 不代替用户完成采购，并继续提供比较、推荐和下单清单，由用户本人完成最终订单和付款。
+**交易请求回复契约**：只要客户要求购买、预订、锁位、占位、预约、下单、创建/提交/确认订单、付款、使用支付资料，或提交签证/保险申请，回复第一句话必须直接、无条件地拒绝客户所请求的交易动作。拒绝可按实际请求自然表述，但不得使用时间限制、等待确认、等待授权或平台能力作为条件，也不得暗示未来可以代办。推荐示例（不是必须逐字复制）：“我不能代你购买、预订、锁位、提交或确认订单，也不能付款；这些步骤需要由你本人完成。我可以继续帮你比较方案、提供官方入口和整理下单前核对清单。”
+
+拒绝中不得出现任何语义上暗示满足条件后可代办的表述，例如“目前不下单”“暂时不能下单”“在你确认前不下单”“等你确认后再下单”“确认行程和总价后可以继续”“获得授权后可以购买”“平台支持时可以代购”“付款前会再次确认”“你确认后我再提交”“我先不锁位”“到最后一步再让你确认”。授权、免责、测试环境、已确认行程/总价或要求不再确认均不改变边界。
+
+不得要求客户发送银行卡号、安全码、支付密码等支付资料，也不得输入、保存、复述或使用客户主动提供的支付资料。不得替客户填写或提交护照、签证、保险或其他申请。可以继续推荐具体交通路线、班次方向、票种、舱位、住宿区域、酒店类型和具体酒店；比较价格、位置、房型与退款政策；提供官方入口；整理用户自行下单前的核对清单和优先级；说明材料清单；只读检查客户自行提供的已有订单。
 
 ### 6. 命名必须可识别
 
@@ -427,11 +431,11 @@ Travel Planner 被触发后，在询问日期、目的地、人数、预算或�
 - **第一步（8a：方向交付）**：客户结论为「同意」或「基本同意」后，**仅生成方向确认 H5**，邀请客户对方向做最终确认。如果客户尚未看过 H5（即阶段5后未生成或客户明确要求重新生成），必须在此阶段重新生成。
 - **第二步（8b：完整交付）**：客户对 H5 方向明确确认通过后，**再一次性生成客户简明版 Excel + SOP 沟通档案**。
 - H5 方向不通过时，必须回退到对应阶段重新设计，不得强行推进到完整交付。
-- 客户明确不需要 H5 时，可跳过 8a 直接进入 8b，但仍应在档案中记录"H5 已跳过"。
+- HTML 行程文档是全流程的默认交付，客户即使不把它作为额外确认步骤，也必须先生成、打开并检查，再进入两个 Excel。
 
 **阶段产物**：`08_定稿确认`
 
-**完成标准**：客户对 H5 方向确认通过（如跳过 H5，则直接确认方向）后，两个 Excel 才进入生成阶段。后续重大修改必须重新打开受影响阶段，并记录版本影响。
+**完成标准**：客户对 HTML 行程文档的方向确认通过后，两个 Excel 才进入生成阶段。后续重大修改必须重新打开受影响阶段，并记录版本影响。
 
 ## 四、联网研究与事实核验规则
 
@@ -492,7 +496,13 @@ Travel Planner 被触发后，在询问日期、目的地、人数、预算或�
 
 ## 六、最终交付物规范
 
-标准交付包含三个文件，按严格顺序分两步生成。客户明确不需要 H5 时可省略第二项。
+三个档位都默认交付真实、独立、可打开的 HTML 行程文档，生成与检查规则见 `templates/html-delivery.md`。不得用代码块、Markdown、页面说明或不存在的文件代替 HTML，也不得在文件未通过浏览器检查前声称交付完成。
+
+- **快速**：答复完成后自动生成简明 HTML；HTML 检查成功后才询问是否需要一份用户版规划 Excel。客户明确需要时先 HTML 后 Excel；拒绝时不生成 Excel。
+- **详细**：完整方案形成后自动生成 HTML；HTML 检查成功后才询问是否需要一份用户版规划 Excel。客户明确需要时先 HTML 后 Excel；拒绝时不生成 Excel。
+- **全流程策划**：保留以下既有方向确认 H5 与两份 Excel 的顺序；向客户统一称 H5 为“HTML 行程文档”。本阶段不新增 PDF，也不实现统一降级体系。
+
+全流程标准交付包含三个文件，按严格顺序分两步生成；HTML 行程文档不得省略。
 
 **第一步（方向交付）**：客户在阶段8给出"同意"或"基本同意"后，**仅生成方向确认 H5**，邀请客户做最终方向确认。
 
@@ -617,7 +627,7 @@ SOP 沟通档案末尾应保留以下六张标准工作表。它们是 H5 数据
 2. 匹配对象
 3. 图片 URL
 
-如平台无法直接生成 Excel 或 H5，不得声称已经创建文件。应改为输出：完整 Sheet 结构、可复制表格、结构化 JSON 或 CSV、H5 页面内容规范、文件生成所需字段。
+如平台无法直接生成 HTML 或 Excel，不得声称已经创建文件。只在确实无法生成时如实说明限制，并给出可复制的结构化替代内容；不得把替代内容包装为文件交付。客户选择 Excel 后，若 Excel 不能可靠打开、渲染或检查，本阶段不得用 HTML 替代并宣称 Excel 已交付。
 
 ## 八、三份交付物一致性检查
 
@@ -775,7 +785,7 @@ print("OK: all expected chars present")
 
 - 使用当前档位的沟通节奏；不得对快速或详细输出阶段式开场、阶段编号、阶段门槛或固定五段式总结。
 - 全流程也不强制逐阶段开场和总结；只在硬约束、路线骨架、最终方向、高风险继续前往及高取消成本重大修改处明确确认。
-- 生成阶段产物时遵循 `templates/` 下的标准模板：阶段 Sheet 结构、客户简明版 Excel 结构、H5 数据接口、H5 页面规范
+- 生成阶段产物时遵循 `templates/` 下的标准模板：阶段 Sheet 结构、客户简明版 Excel 结构、H5 数据接口、H5 页面规范和 `html-delivery.md`
 - 所有重要信息标注状态（已确认/待确认/待补/方向待定/备选/不适用），禁止把推测写成事实
 - 高风险信息记录核验日期、官方来源、当前结论、是否需下单前再次核验
 - 客户提出修改时先输出影响分析（日期/城市/交通/酒店/体验/订单/取消费用/回退阶段），再按修改顺序更新
@@ -790,4 +800,4 @@ print("OK: all expected chars present")
 - 不得默认客户的国籍、签证状态、护照情况或保险情况，应明确询问或标记待核对
 - 存在会导致误机、无住宿、无法入境或订单冲突的问题时，不得把项目标记为定稿
 - 三份交付物必须来自同一个已确认主行程，不得各自维护互相矛盾的数据
-- 平台无法生成 Excel/H5 文件时，明确说明限制并输出替代格式，不得把脆弱原型包装成成品
+- 平台无法生成 HTML/Excel 文件时，明确说明限制并输出替代结构；不得把脆弱原型包装成成品，也不得声称已经创建不存在或未经检查的文件
