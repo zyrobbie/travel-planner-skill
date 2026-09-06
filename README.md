@@ -1,24 +1,22 @@
 # travel-planner · 海外旅行规划师 3.0.0
 
-> 这是 `3.0.0` 开发分支说明。发布前 `main` 仍保持 2.8.0 稳定版；请勿把开发分支当作正式发布版。
-
 `travel-planner` 是一个面向 Agent Skills 的海外旅行规划 Skill：先按用户愿意投入的时间选择沟通深度，再逐步形成可执行的旅行建议、路线、风险核对和文件交付。它只提供购买决策支持，不会替用户完成任何交易。
 
 ## 安装
 
 ### 一句话安装
 
-测试 3.0.0 开发版时，只需对支持 GitHub Skill 安装的 Agent 发送一次：
+发布版只需对支持 GitHub Skill 安装的 Agent 发送一次：
 
-> 帮我安装这个 skill：https://github.com/zyrobbie/travel-planner-skill/tree/codex/v3.0.0-dev
+> 帮我安装这个 skill：https://github.com/zyrobbie/travel-planner-skill
 
 一次安装应取得完整仓库包；用户不需要手工复制 `SKILL.md`、模板或其他运行文件。安装后请在**全新任务**中开始旅行请求，让宿主重新发现 Skill。
 
-> 当前根地址 `https://github.com/zyrobbie/travel-planner-skill` 指向尚未合入的 2.8.0 `main`。在 3.0.0 合入前，测试必须使用上面的开发分支地址。
+贡献者或发布候选测试需要指定对应分支或提交；普通用户不需要手工选择模板、复制文件或补齐依赖。
 
 ### 已验证与未实测环境
 
-- **已验证：Codex CLI 0.153.1 的 GitHub 包安装。** 已从 `codex/v3.0.0-dev` 下载完整包，并在独立 CLI 会话中验证候选 Skill 可被发现、激活并输出固定档位首问。
+- **已验证：Codex CLI 0.153.1 的发布候选 GitHub 包安装。** 已从发布候选分支下载完整包，并在独立 CLI 会话中验证候选 Skill 可被发现、激活并输出固定档位首问。
 - **已知宿主限制：** 后续 CLI 冒烟会话曾因 rollout state-db 异常未完成；这不代表 Skill 已在该宿主的所有流程中通过。
 - **兼容性声明，未实测：** 其他支持 Agent Skills 或 GitHub Skill 安装的宿主，只有在其能一次取得整个仓库包、解析 `SKILL.md` 并保留 `templates/` 时才可能适配。本仓库不宣称它们已经真实通过安装或交付验收。
 
