@@ -1,61 +1,83 @@
-# travel-planner · 海外旅行规划师
+# travel-planner · 海外旅行规划师 3.0.0
 
-> **English**: An agent skill that turns any AI agent into a professional overseas travel planner. Instead of dumping a generic itinerary on the first reply, it walks users through phased planning — constraints → group consensus → route skeleton → experience priorities → daily rhythm → key bookings → risk audit → final delivery — and produces executable travel plans with three standard deliverables (a 3-minute client Excel, a direction-confirmation H5 page, and a maintainable SOP archive). **To install, just tell your agent: "Install this skill: https://github.com/zyrobbie/travel-planner-skill"**
+`travel-planner` 是一个面向 Agent Skills 的海外旅行规划 Skill：先按用户愿意投入的时间选择沟通深度，再逐步形成可执行的旅行建议、路线、风险核对和文件交付。它只提供购买决策支持，不会替用户完成任何交易。
 
-一个面向 AI Agent 的海外旅行规划方法论 Skill。不堆砌景点清单，而是通过分阶段沟通，帮用户做出**真正可执行**的旅行方案。
+## 安装
 
-## 安装 / Install
+### 一句话安装
 
-**方式一：一句 Prompt 安装（推荐）**
-
-直接对你的 Agent 说：
+发布版只需对支持 GitHub Skill 安装的 Agent 发送一次：
 
 > 帮我安装这个 skill：https://github.com/zyrobbie/travel-planner-skill
 
-支持 Agent Skills 规范的工具（WorkBuddy、Claude Code、Cursor 等）会自动拉取仓库，把 `SKILL.md` 和 `templates/` 装入本地 skills 目录，之后提出海外旅行规划需求时自动激活。
+一次安装应取得完整仓库包；用户不需要手工复制 `SKILL.md`、模板或其他运行文件。安装后请在**全新任务**中开始旅行请求，让宿主重新发现 Skill。
 
-**方式二：手动安装**
+贡献者或发布候选测试需要指定对应分支或提交；普通用户不需要手工选择模板、复制文件或补齐依赖。
 
-```bash
-git clone https://github.com/zyrobbie/travel-planner-skill.git
-```
+### 已验证与未实测环境
 
-然后把 `SKILL.md` 和 `templates/` 复制到你的 Agent 工具的 skills 目录，例如 `~/.workbuddy/skills/travel-planner/` 或 `~/.claude/skills/travel-planner/`。
+- **已验证：Codex CLI 0.153.1 的发布候选 GitHub 包安装。** 已从发布候选分支下载完整包，并在独立 CLI 会话中验证候选 Skill 可被发现、激活并输出固定档位首问。
+- **已知宿主限制：** 后续 CLI 冒烟会话曾因 rollout state-db 异常未完成；这不代表 Skill 已在该宿主的所有流程中通过。
+- **兼容性声明，未实测：** 其他支持 Agent Skills 或 GitHub Skill 安装的宿主，只有在其能一次取得整个仓库包、解析 `SKILL.md` 并保留 `templates/` 时才可能适配。本仓库不宣称它们已经真实通过安装或交付验收。
 
-**方式三：零安装试用**
+## 三档规划
 
-把 `SKILL.md` 全文粘贴进任意 LLM 对话作为系统提示词，直接开始规划。
+当用户没有明确档位时，Skill 的首次回复只问：
 
-## 这是什么
+> 你准备花多久时间规划这次旅行？
+>
+> 1. 几分钟，我想快速的听听你的建议
+> 2. 1小时，我们一起完成一次简约的完整旅行规划
+> 3. 几天，我想完成一次独特、详尽的完整旅行规划，并关注旅行中的各项细节和风险。
 
-`travel-planner` 定义了 AI 扮演海外旅行规划师时的完整工作方法：
+| 用户选择 | 档位 | 沟通与交付 |
+| --- | --- | --- |
+| 几分钟 | 快速 | 直接给出精简建议；默认生成 HTML 行程文档；用户明确需要时才生成用户版 Excel。 |
+| 1 小时 | 详细 | 按基本条件、旅行方向、完整方案三步收敛；默认生成 HTML；用户明确需要时才生成用户版 Excel。 |
+| 几天 | 全流程策划 | 保留多人治理、路线、体验、日程、预订核对、风险与定稿能力；先由 HTML 确认方向。 |
 
-- **分阶段收敛（阶段 0—8）**：阶段导航 → 任务定义与旅行约束 → 团队共识与旅行治理（可选）→ 路线骨架 → 体验偏好与取舍 → 一日一行日程草案 → 关键预订与出发准备（A/B/C 三级）→ 行程核对与风险审计 → 定稿确认与版本冻结。每个阶段只解决一个层级的问题，用户确认后才进入下一阶段
-- **四角色一体**：需求分析师、路线规划师、风险审计员、交付设计师
-- **事实核验纪律**：信息六级状态管理（已确认/待确认/待补/方向待定/备选/不适用）；农历节日、宗教节日等日期事实必须联网核验，不得凭记忆推算；高风险信息以官方来源为准
-- **三份标准交付物**：用户简明版 Excel（3 分钟看懂）、轻量方向确认 H5、SOP 沟通档案 Excel（9 张阶段 Sheet + 6 张 H5 数据接口，可供任何规划师或 Agent 接续维护）
-- **沟通规范**：结构化选项必须带说明、小众名称必须「中文可识别名（英文/当地名）」+ 一句话解释、内部术语不外泄（人话原则）
-- **文件生成安全规范**：UTF-8 显式声明、U+FFFD 乱码防御与回退方案
+用户已明确说“快速模式”“我有 1 小时”或“使用全流程策划”时，Skill 会直接进入对应档位，不重复询问。中途切换档位会保留已确认的日期、人员、预算、路线、偏好和已有订单事实。
+
+## 交付与降级
+
+- 三个档位都默认交付真实、独立、可打开的 HTML 行程文档。
+- 快速和详细档只在用户明确选择后生成用户版 Excel；拒绝 Excel 时不会生成。
+- 全流程在用户确认 HTML 方向并冻结主行程后，正常交付 HTML、PDF、客户简明版 Excel、SOP 沟通档案 Excel。
+- PDF 或任一 Excel 不能可靠生成、打开或检查时，正式交付只有一份完整 HTML；不会混合交付成功与失败的文件，也不会用 CSV、JSON、Markdown 或代码块伪装成交付物。
+- HTML 本身不能可靠生成或实际检查时，停止文件交付，不用其他格式替代。
+
+PDF、Excel 与 HTML 的实际可用性必须由当前宿主真实打开和检查后才能宣称通过。未实测的平台只记录兼容性风险。
+
+## 采购边界
+
+Skill 可以提供具体交通、住宿和产品建议，比较价格与退款政策，给出官方入口、优先级和用户自行下单前核对清单，也可以只读核对用户已有订单。
+
+无论用户是否授权、宿主是否具备浏览器或购买工具，Skill 都不会购买、预订、锁位、创建/提交/确认订单、付款、使用支付资料，或替用户提交签证、保险及其他申请。最终采购、填写与提交必须由用户本人完成。
 
 ## 目录结构
 
-```
+```text
 travel-planner-skill/
-├── SKILL.md                          # 完整 SOP 正文（frontmatter + 方法论）
-└── templates/                        # 标准交付物模板
-    ├── stage-sheets.md               # SOP 沟通档案：阶段 0—8 共 9 张 Sheet 结构
-    ├── client-excel.md               # 用户简明版 Excel：3 张 Sheet
-    ├── h5-data-sheets.md             # H5 数据接口：6 张工作表（字段顺序固定）
-    ├── h5-page-spec.md               # 方向确认 H5：页面结构与手机适配校验清单
-    ├── communication-scripts.md      # 沟通话术：人话原则、开场白、选项规范、命名规则
-    └── final-checks.md               # 一致性检查、id 关联校验、最终验收 12 条
+├── SKILL.md                          # Skill frontmatter 与完整规划规则
+├── README.md                         # 安装、档位、交付与兼容性说明
+├── LICENSE                           # MIT License
+└── templates/                        # 运行所需的 8 个模板
+    ├── stage-sheets.md               # SOP 档案：阶段 0—8 的 9 张 Sheet
+    ├── client-excel.md               # 客户 Excel：三档生成时机与 Sheet 结构
+    ├── h5-data-sheets.md             # H5 数据接口：6 张数据 Sheet
+    ├── h5-page-spec.md               # HTML/H5 页面与移动端检查规范
+    ├── html-delivery.md              # 三档 HTML、Excel 与统一降级规则
+    ├── pdf-delivery.md               # 全流程 PDF 生成与逐页验收规则
+    ├── communication-scripts.md      # 档位、沟通话术与交易拒绝规则
+    └── final-checks.md               # 跨交付一致性与最终检查
 ```
 
-## 设计哲学
+## 设计原则
 
-一份攻略达到以下条件才算真正完成：每段跨城交通真实存在且可执行；每天有明确主体验；多人移动、吃饭和集合时间已计入；高风险信息有官方依据；每天都有可删除项或备选方案；出行者当天不需要重新做重大决定。
-
-旅行攻略的最终目标，不是把尽可能多的景点装进行程，而是让同行者清楚知道：今天为什么这样安排、下一步去哪里、什么必须完成、什么可以放弃，以及发生变化时怎么办。
+- 不把推测、历史价格、库存或未看到的订单写成已确认事实。
+- 农历、宗教节日、公共假期和目的地风险须以当年官方来源核验。
+- 小众地点和体验第一次出现时使用可识别中文名、当地名与简短说明。
+- 复杂规划可以有完整内部档案，但面向旅行者的结论必须清晰、可执行。
 
 ## License
 
